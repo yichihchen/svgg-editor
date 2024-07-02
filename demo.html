@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>SVG image editor</title>
@@ -23,13 +24,13 @@
 
 <body>
 
-<header class="container">
-    <nav class="navbar navbar-default">
-        <div class="navbar-header"><a class="navbar-brand" href="#">SVG image editor</a></div>
-    </nav>
-</header>
+    <header class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header"><a class="navbar-brand" href="#">SVG image editor</a></div>
+        </nav>
+    </header>
 
-<script type="text/template" id="constructorLayer">
+    <script type="text/template" id="constructorLayer">
     <g xmlns="http://www.w3.org/2000/svg">
         <rect class="draggable-handle" fill-opacity="0" stroke-width="<%=strokeSize%>" stroke-miterlimit="<%=strokeSize%>" stroke-dasharray="5,5" width="200" height="200"/>
 
@@ -58,6 +59,42 @@
                 <line x1="-0.5" y1="<%=handleSize%>" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
                 <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
             </g>
+            <!-- add -->
+            <g class="e-resizable-handle">
+                <line x1="<%=handleSize%>" y1="-0.5" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <line x1="-0.5" y1="<%=handleSize%>" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+                    <line x1="0" y1="-0.5" x2="0" y2="<%=handleSize%>"></line>
+                    <line x1="-0.4" y1="0" x2="<%=handleSize%>" y2="0"></line>
+                    <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+            </g>
+            
+            <g class="w-resizable-handle">
+                <line x1="0" y1="-0.5" x2="0" y2="<%=handleSize%>"></line>
+                <line x1="-0.5" y1="<%=handleSize%>" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+                    <line x1="<%=handleSize%>" y1="-0.5" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                    <line x1="-0.4" y1="0" x2="<%=handleSize%>" y2="0"></line>
+                    <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+            </g>
+            <g class="n-resizable-handle">
+                <line x1="<%=handleSize%>" y1="-0.5" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <line x1="-0.5" y1="<%=handleSize%>" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+                    <line x1="0" y1="-0.5" x2="0" y2="<%=handleSize%>"></line>
+                    <line x1="-0.4" y1="0" x2="<%=handleSize%>" y2="0"></line>
+                    <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+            </g>
+            <g class="s-resizable-handle">
+                <line x1="<%=handleSize%>" y1="-0.5" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <line x1="-0.5" y1="<%=handleSize%>" x2="<%=handleSize%>" y2="<%=handleSize%>"></line>
+                <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+                    <line x1="0" y1="-0.5" x2="0" y2="<%=handleSize%>"></line>
+                <line x1="-0.4" y1="0" x2="<%=handleSize%>" y2="0"></line>
+                <rect width="<%=handleSize%>" height="<%=handleSize%>"/>
+            </g>
+     
+            <!-- add end -->
         </g>
 
         <g class="rotatable-group">
@@ -87,21 +124,22 @@
     </g>
 </script>
 
-<main class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="row testing">
-                <div class="col-xs-4 controls">
-                    <p>
-                        <button type="button" class="btn btn-primary add-random-image-layer">Add random image layer</button>
-                        <button type="button" class="btn btn-danger clear-screen">Clear screen</button>
-                    </p>
-                </div>
-                <div class="col-xs-8">
-                    <div id="layersDump">
-                        <ul class="list-unstyled items"></ul>
+    <main class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row testing">
+                    <div class="col-xs-4 controls">
+                        <p>
+                            <button type="button" class="btn btn-primary add-random-image-layer">Add random image
+                                layer</button>
+                            <button type="button" class="btn btn-danger clear-screen">Clear screen</button>
+                        </p>
+                    </div>
+                    <div class="col-xs-8">
+                        <div id="layersDump">
+                            <ul class="list-unstyled items"></ul>
 
-                        <script type="text/template" id="layersDumpItem">
+                            <script type="text/template" id="layersDumpItem">
                             id: <strong><%= id %></strong>
                             x: <strong><%= Math.round(x) %></strong>
                             y: <strong><%= Math.round(y) %></strong>
@@ -109,126 +147,127 @@
                             height: <strong><%= Math.round(height) %></strong>
                             rotation: <strong><%= Math.round(rotation) %></strong>
                         </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-8">
+                <div id="imageEditor"></div>
+            </div>
+            <div class="col-xs-4">
+                <div class="layers">
+                    <h4>PNG images</h4>
+                    <div class="png-images">
+                        <ul>
+                            <li><img src="demo/img/bird.png"></li>
+                            <li><img src="demo/img/bunny-1.png"></li>
+                            <li><img src="demo/img/bunny-2.png"></li>
+                            <li><img src="demo/img/cat.png"></li>
+                            <li><img src="demo/img/chick1.png"></li>
+                            <li><img src="demo/img/chick2.png"></li>
+                            <li><img src="demo/img/chick3.png"></li>
+                            <li><img src="demo/img/chicken.png"></li>
+                            <li><img src="demo/img/cow.png"></li>
+                            <li><img src="demo/img/giraffe.png"></li>
+                            <li><img src="demo/img/hippo.png"></li>
+                            <li><img src="demo/img/nest.png"></li>
+                            <li><img src="demo/img/penguin.png"></li>
+                            <li><img src="demo/img/pig.png"></li>
+                            <li><img src="demo/img/sheep-b.png"></li>
+                            <li><img src="demo/img/sheep-w.png"></li>
+
+                        </ul>
+                    </div>
+
+                    <h4>SVG images</h4>
+                    <div class="svg-images">
+                        <ul>
+                            <li><img src="demo/svg/Animal_Number_One.svg"></li>
+                            <li><img src="demo/svg/Boy_And_Turtle_clip_art.svg"></li>
+                            <li><img src="demo/svg/Cartoon_Elephant.svg"></li>
+                        </ul>
+                    </div>
+
+                    <h4>Text layer</h4>
+                    <div class="text">
+                        <div class="form-group">
+                            <input type="text" class="layer-text form-control" value="I love SVG!">
+                        </div>
+
+                        <div class="form-group">
+                            <select class="layer-font form-control">
+                                <optgroup label="Google Fonts">
+                                    <option>Droid Sans</option>
+                                    <option>Droid Serif</option>
+                                    <option>Roboto</option>
+                                    <option>Lobster</option>
+                                    <option>Poiret One</option>
+                                    <option>Comfortaa</option>
+                                    <option>Marck Script</option>
+                                    <option>Bad Script</option>
+                                    <option>Press Start 2P</option>
+                                </optgroup>
+
+                                <optgroup label="Serif Fonts">
+                                    <option>Arial, Helvetica, sans-serif</option>
+                                    <option>"Arial Black", Gadget, sans-serif</option>
+                                    <option>"Comic Sans MS", cursive, sans-serif</option>
+                                    <option>Impact, Charcoal, sans-serif</option>
+                                    <option>"Lucida Sans Unicode", "Lucida Grande", sans-serif</option>
+                                    <option>Tahoma, Geneva, sans-serif</option>
+                                    <option>"Trebuchet MS", Helvetica, sans-serif</option>
+                                    <option>Verdana, Geneva, sans-serif</option>
+                                </optgroup>
+
+                                <optgroup label="Monospace Fonts">
+                                    <option>"Courier New", Courier, monospace</option>
+                                    <option>"Lucida Console", Monaco, monospace</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="slider layer-font-size" type="text" data-slider-min="20" data-slider-max="130"
+                                data-slider-step="10" data-slider-value="20">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control layer-text-color color-picker" value="#000000" />
+                        </div>
+
+                        <button class="btn btn-default add">Add</button>
                     </div>
                 </div>
             </div>
         </div>
+    </main>
 
-        <div class="col-xs-8">
-            <div id="imageEditor"></div>
-        </div>
-        <div class="col-xs-4">
-            <div class="layers">
-                <h4>PNG images</h4>
-                <div class="png-images">
-                    <ul>
-                        <li><img src="demo/img/bird.png"></li>
-                        <li><img src="demo/img/bunny-1.png"></li>
-                        <li><img src="demo/img/bunny-2.png"></li>
-                        <li><img src="demo/img/cat.png"></li>
-                        <li><img src="demo/img/chick1.png"></li>
-                        <li><img src="demo/img/chick2.png"></li>
-                        <li><img src="demo/img/chick3.png"></li>
-                        <li><img src="demo/img/chicken.png"></li>
-                        <li><img src="demo/img/cow.png"></li>
-                        <li><img src="demo/img/giraffe.png"></li>
-                        <li><img src="demo/img/hippo.png"></li>
-                        <li><img src="demo/img/nest.png"></li>
-                        <li><img src="demo/img/penguin.png"></li>
-                        <li><img src="demo/img/pig.png"></li>
-                        <li><img src="demo/img/sheep-b.png"></li>
-                        <li><img src="demo/img/sheep-w.png"></li>
-                    </ul>
-                </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
+    <script src="js/hammer.min.js?v=3"></script>
 
-                <h4>SVG images</h4>
-                <div class="svg-images">
-                    <ul>
-                        <li><img src="demo/svg/Animal_Number_One.svg"></li>
-                        <li><img src="demo/svg/Boy_And_Turtle_clip_art.svg"></li>
-                        <li><img src="demo/svg/Cartoon_Elephant.svg"></li>
-                    </ul>
-                </div>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-                <h4>Text layer</h4>
-                <div class="text">
-                    <div class="form-group">
-                        <input type="text" class="layer-text form-control" value="I love SVG!">
-                    </div>
+    <!-- JqueryUI using draggable/droppable functionality for layers -->
+    <script src="demo/js/vendors/jquery-ui.min.js"></script>
 
-                    <div class="form-group">
-                        <select class="layer-font form-control">
-                            <optgroup label="Google Fonts">
-                                <option>Droid Sans</option>
-                                <option>Droid Serif</option>
-                                <option>Roboto</option>
-                                <option>Lobster</option>
-                                <option>Poiret One</option>
-                                <option>Comfortaa</option>
-                                <option>Marck Script</option>
-                                <option>Bad Script</option>
-                                <option>Press Start 2P</option>
-                            </optgroup>
+    <script src="demo/js/vendors/underscore-min.js"></script>
+    <script src="demo/js/vendors/backbone-min.js"></script>
 
-                            <optgroup label="Serif Fonts">
-                                <option>Arial, Helvetica, sans-serif</option>
-                                <option>"Arial Black", Gadget, sans-serif</option>
-                                <option>"Comic Sans MS", cursive, sans-serif</option>
-                                <option>Impact, Charcoal, sans-serif</option>
-                                <option>"Lucida Sans Unicode", "Lucida Grande", sans-serif</option>
-                                <option>Tahoma, Geneva, sans-serif</option>
-                                <option>"Trebuchet MS", Helvetica, sans-serif</option>
-                                <option>Verdana, Geneva, sans-serif</option>
-                            </optgroup>
+    <!-- base svgImageEditor scripts -->
+    <script src="js/svgImageEditor.js?15"></script>
 
-                            <optgroup label="Monospace Fonts">
-                                <option>"Courier New", Courier, monospace</option>
-                                <option>"Lucida Console", Monaco, monospace</option>
-                            </optgroup>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <input class="slider layer-font-size" type="text"
-                               data-slider-min="20" data-slider-max="130"
-                               data-slider-step="10" data-slider-value="20">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control layer-text-color color-picker" value="#000000" />
-                    </div>
-
-                    <button class="btn btn-default add">Add</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
-<script src="js/hammer.min.js?v=3"></script>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-<!-- JqueryUI using draggable/droppable functionality for layers -->
-<script src="demo/js/vendors/jquery-ui.min.js"></script>
-
-<script src="demo/js/vendors/underscore-min.js"></script>
-<script src="demo/js/vendors/backbone-min.js"></script>
-
-<!-- base svgImageEditor scripts -->
-<script src="js/svgImageEditor.js?15"></script>
-
-<!-- demo scripts -->
-<script src="demo/js/vendors/jquery.slimscroll.min.js"></script>
-<script src="demo/js/vendors/select2.full.min.js"></script>
-<script src="demo/js/vendors/bootstrap-slider.min.js"></script>
-<script src="demo/js/vendors/bootstrap-colorpicker.min.js"></script>
-<script src="demo/js/app.js"></script>
-<script src="demo/js/dump.js"></script>
-<script src="demo/js/demo.js"></script>
+    <!-- demo scripts -->
+    <script src="demo/js/vendors/jquery.slimscroll.min.js"></script>
+    <script src="demo/js/vendors/select2.full.min.js"></script>
+    <script src="demo/js/vendors/bootstrap-slider.min.js"></script>
+    <script src="demo/js/vendors/bootstrap-colorpicker.min.js"></script>
+    <script src="demo/js/app.js"></script>
+    <script src="demo/js/dump.js"></script>
+    <script src="demo/js/demo.js"></script>
 
 </body>
+
 </html>
